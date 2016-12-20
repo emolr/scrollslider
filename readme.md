@@ -58,7 +58,7 @@ In a template:
 
 | Attribute     | Type                       | Description                                                                                          |
 |---------------|----------------------------|------------------------------------------------------------------------------------------------------|
-| behavior      | string ('auto' or 'static') | Auto: Show the buttons only if the container has overflowing content.<br />Static: Show the buttons always. |
+| behavior      | string ('auto' or 'static') | Auto: Show the buttons only if the container has overflowing content<br />Static: Show the buttons always |
 | duration      | number                     | The duration it scrolls on button click (milliseconds)                                               |
 | scrollLength  | number                     | How far it scrolls on button click (pixels)                                                          |
 | buttonClasses | string                     | Add custom classes to the buttons for custom button styling                                          |
