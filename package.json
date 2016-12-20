@@ -1,0 +1,24 @@
+{
+  "name": "scrollslider",
+  "version": "1.0.0",
+  "description": "adds smoothscrolling and scroll buttons if component has overflowing content, needs angular < 2.*",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/emolr/scrollslider.git"
+  },
+  "keywords": [
+    "scroller",
+    "angular2",
+    "angular"
+  ],
+  "author": "Emil Møller",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/emolr/scrollslider/issues"
+  },
+  "homepage": "https://github.com/emolr/scrollslider#readme"
+}

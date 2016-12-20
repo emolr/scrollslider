@@ -1,0 +1,16 @@
+<div class="scroller" #scroller>
+  <div class="scroller__list" #scroller__list>
+    <ng-content></ng-content>
+    <div style='clear:both'></div>
+  </div>
+  <div *ngIf="navIsVisible" class="scroller__nav">
+    <button
+    (click)="scroll(-scrollLength)"
+    [disabled]="disableScrollLeft"
+    class="scroller__nav__button {{buttonClasses}}">Left</button>
+    <button
+    (click)="scroll(+scrollLength)"
+    [disabled]="disableScrollRight"
+    class="scroller__nav__button {{buttonClasses}}">Right</button>
+  </div>
+</div>

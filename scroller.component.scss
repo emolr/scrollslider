@@ -1,0 +1,19 @@
+.scroller {
+  position: relative;
+  display: flex;
+  overflow: hidden;
+
+  &__list {
+    flex: 1;
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    overflow-y: hidden;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  &__nav {
+    flex-shrink: 0;
+  }
+}
