@@ -44,6 +44,17 @@ Make sure the content you wrap with `app-scrollslider` has `white-space: nowrap`
 
 
 ## Attributes
+In a template:
+
+```
+<app-scrollslider
+  [behavior]="'auto'"
+  [duration]="200"
+  [scrollLength]="300"
+  [buttonClasses]="'button button-primary'">
+  ...
+</app-scrollslider>
+```
 
 | Attribute     | Type                       | Description                                                                                          |
 |---------------|----------------------------|------------------------------------------------------------------------------------------------------|
