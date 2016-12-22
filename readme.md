@@ -51,7 +51,11 @@ In a template:
   [behavior]="'auto'"
   [duration]="200"
   [scrollLength]="300"
-  [buttonClasses]="'button button-primary'">
+  [scrollerTrackClasses]="'ws-medium'" // example classes
+  [buttonClasses]="'button button-primary'" // example classes
+  [leftButtonText]="left"
+  [rightButtonText]="right"
+  [layout]="'split'">
   ...
 </app-scrollslider>
 ```
@@ -61,4 +65,8 @@ In a template:
 | behavior      | string ('auto' or 'static') | Auto: Show the buttons only if the container has overflowing content<br />Static: Show the buttons always |
 | duration      | number                     | The duration it scrolls on button click (milliseconds)                                               |
 | scrollLength  | number                     | How far it scrolls on button click (pixels)                                                          |
-| buttonClasses | string                     | Add custom classes to the buttons for custom button styling                                          |
+| buttonClasses | string                     | Add custom classes to the buttons for custom button styling |
+| leftButtonText | string                     | The text inside left button |
+| rightButtonText | string                     | The text inside right button |
+| scrollerTrackClasses | string                     | Add custom classes to the track where the content is located |
+| layout | string ('default' or 'split') | Default: Places the button to the right side<br>Split: Places the track between the nav buttons |

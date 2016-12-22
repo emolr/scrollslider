@@ -2,18 +2,46 @@
   position: relative;
   display: flex;
   overflow: hidden;
+  align-items: center;
 
   &__list {
-    flex: 1;
-    margin: 0;
-    padding: 0;
-    min-height: 100%;
-    overflow-y: hidden;
     position: relative;
-    -webkit-overflow-scrolling: touch;
+    min-height: 100%;
+    overflow: hidden;
+
+    &__track {
+      display: block;
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      overflow: hidden;
+      position: relative;
+      -webkit-overflow-scrolling: touch;
+    }
   }
 
   &__nav {
     flex-shrink: 0;
+    min-height: auto;
+    min-height: -webkit-min-content;
+  }
+
+
+
+  // Layouts
+
+  // Distrobute the nav buttons on each side of the scroller__list
+  &--split-layout {
+    .scroller__nav {
+      &--left {
+        order: 1;
+      }
+      &--right {
+        order: 3;
+      }
+    }
+    .scroller__list {
+      order: 2;
+    }
   }
 }

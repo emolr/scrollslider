@@ -1,6 +1,7 @@
 import { Component, OnInit, Renderer, ViewChild, Input } from '@angular/core';
 
 type Behavior = 'auto' | 'static';
+type Layout = 'default' | 'split';
 
 @Component({
   selector: 'app-scrollslider',
@@ -16,11 +17,19 @@ export class ScrollerComponent implements OnInit {
   @Input()
     public buttonClasses: string;
   @Input()
+    public scrollerTrackClasses: string;
+  @Input()
     public duration: Number = 180;
   @Input()
     public scrollLength: Number = 100;
   @Input()
     public behavior: Behavior = 'auto';
+  @Input()
+    public leftButtonText: String = 'left';
+  @Input()
+    public rightButtonText: String = 'right';
+  @Input()
+    public layout: Layout = 'default';
 
   public navIsVisible = false;
   public disableScrollRight: Boolean = false;
@@ -38,8 +47,11 @@ export class ScrollerComponent implements OnInit {
     this.renderer.setElementStyle(this.scrollerViewEl, 'overflowX', 'scroll');
     this.renderer.setElementStyle(this.scrollerViewEl, 'paddingBottom', '30px');
 
-    // Check if scroll buttons should be visible
-    this.shouldNavBeVisible();
+    // Check if scroll buttons should activated
+    setTimeout(() => {
+      this.shouldNavBeVisible();
+      this.checkButtonStates();
+    });
 
     // Keep checking if nav should be visible
     this.renderer.listenGlobal(
