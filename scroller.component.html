@@ -1,8 +1,9 @@
 <div
   class="scroller"
+  #scroller
   [class.scroller--split-layout]="layout === 'split'">
-  <div #scroller class="scroller__list {{scrollerTrackClasses}}">
-    <div class="scroller__list__track" #scroller__list>
+  <div #scroller__list class="scroller__list {{scrollerTrackClasses}}">
+    <div class="scroller__list__track" #scroller__list__track>
       <ng-content></ng-content>
       <div style='clear:both'></div>
     </div>
@@ -11,18 +12,24 @@
   <div
     *ngIf="navIsVisible"
     class="scroller__nav scroller__nav--left">
-    <button
+    <span
     (click)="scroll(-scrollLength)"
-    [disabled]="disableScrollLeft"
-    class="scroller__nav__button {{buttonClasses}}">{{leftButtonText}}</button>
+    [ngClass]="{'is-disabled': disableScrollLeft}"
+    class="scroller__nav__button {{buttonClasses}}">
+      <span *ngIf="!customLeftButton">Button left</span>
+      <ng-content select="[leftButtonContent]"></ng-content>
+    </span>
   </div>
 
   <div
     *ngIf="navIsVisible"
     class="scroller__nav scroller__nav--right">
-    <button
+    <span
     (click)="scroll(+scrollLength)"
-    [disabled]="disableScrollRight"
-    class="scroller__nav__button {{buttonClasses}}">{{rightButtonText}}</button>
+    [ngClass]="{'is-disabled': disableScrollRight}"
+    class="scroller__nav__button {{buttonClasses}}">
+      <span *ngIf="!customRightButton">Button right</span>
+      <ng-content select="[rightButtonContent]"></ng-content>
+    </span>
   </div>
 </div>

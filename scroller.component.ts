@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer, ViewChild, Input } from '@angular/core';
+import { Component, OnInit, Renderer, ViewChild, ContentChild, Input, ElementRef } from '@angular/core';
 
 type Behavior = 'auto' | 'static';
 type Layout = 'default' | 'split';
@@ -10,9 +10,15 @@ type Layout = 'default' | 'split';
 })
 export class ScrollerComponent implements OnInit {
   @ViewChild('scroller')
-    public scrollerRoot: any;
+    public scrollerRoot: ElementRef;
   @ViewChild('scroller__list')
-    public scrollerView: any;
+    public scrollerList: ElementRef;
+  @ViewChild('scroller__list__track')
+    public scrollerView: ElementRef;
+  @ContentChild('leftButton')
+    public customLeftButton: ElementRef;
+  @ContentChild('rightButton')
+    public customRightButton: ElementRef;
 
   @Input()
     public buttonClasses: string;
@@ -25,11 +31,9 @@ export class ScrollerComponent implements OnInit {
   @Input()
     public behavior: Behavior = 'auto';
   @Input()
-    public leftButtonText: String = 'left';
-  @Input()
-    public rightButtonText: String = 'right';
-  @Input()
     public layout: Layout = 'default';
+  @Input()
+    public showButtonsFrom: Number = 0;
 
   public navIsVisible = false;
   public disableScrollRight: Boolean = false;
@@ -43,7 +47,7 @@ export class ScrollerComponent implements OnInit {
     const scrollerViewHeight = this.scrollerViewEl.offsetHeight;
 
     // Set inital style to hide scrollbar
-    this.renderer.setElementStyle(this.scrollerRoot.nativeElement, 'height', `${scrollerViewHeight}px`);
+    this.renderer.setElementStyle(this.scrollerList.nativeElement, 'height', `${scrollerViewHeight}px`);
     this.renderer.setElementStyle(this.scrollerViewEl, 'overflowX', 'scroll');
     this.renderer.setElementStyle(this.scrollerViewEl, 'paddingBottom', '30px');
 
@@ -82,14 +86,17 @@ export class ScrollerComponent implements OnInit {
   shouldNavBeVisible() {
     if (this.behavior === 'auto') {
 
-      if (this.scrollerViewEl.scrollWidth > this.scrollerViewEl.offsetWidth) {
+      if (this.scrollerViewEl.scrollWidth > this.scrollerViewEl.offsetWidth && this.scrollerRoot.nativeElement.offsetWidth > this.showButtonsFrom) {
         this.navIsVisible = true;
+        console.log('1', this.scrollerRoot.nativeElement.offsetWidth)
       } else {
         this.navIsVisible = false;
+        console.log('2', this.scrollerRoot.nativeElement.offsetWidth)
       };
 
-    } else if (this.behavior === 'static') {
+    } else if (this.scrollerRoot.nativeElement.offsetWidth > this.showButtonsFrom && this.behavior === 'static') {
       this.navIsVisible = true;
+      console.log('3')
     }
   }
 
@@ -103,7 +110,7 @@ export class ScrollerComponent implements OnInit {
     let timeout;
 
     // Using request animation frame to smooth scroll
-    const animate = () => {
+    const animateScroll = () => {
       var now = Date.now(),
           current = now - startTime,
           position = this.easeInOutQuad(current, currentScrollPos, val, this.duration);
@@ -114,10 +121,10 @@ export class ScrollerComponent implements OnInit {
 
       // Update scroll views scroll position
       this.renderer.setElementProperty(this.scrollerViewEl, 'scrollLeft', position);
-      timeout = this.nativeWindow.requestAnimationFrame(animate);
+      timeout = this.nativeWindow.requestAnimationFrame(animateScroll);
     };
 
-    animate();
+    animateScroll();
   }
 
   /* Toggle disabling variables for
@@ -132,13 +139,13 @@ export class ScrollerComponent implements OnInit {
     } else {
       this.disableScrollLeft = false
     }
-    if (this.scrollerViewEl.scrollLeft + this.scrollerViewEl.offsetWidth === this.scrollerViewEl.scrollWidth) {
+    // Minus 2 is wrong, but can't seem to trigger without
+    if (this.scrollerViewEl.scrollLeft + this.scrollerViewEl.offsetWidth > this.scrollerViewEl.scrollWidth - 2) {
       this.disableScrollRight = true;
     } else {
       this.disableScrollRight = false;
     }
   }
-
   /* debounce function calls
    * to avoid jitter.
    * {void}

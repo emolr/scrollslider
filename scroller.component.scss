@@ -24,6 +24,17 @@
     flex-shrink: 0;
     min-height: auto;
     min-height: -webkit-min-content;
+
+    & > .scroller__nav__button {
+      user-select: none;
+      cursor: default;
+      display: block;
+
+      &.is-disabled {
+        opacity: .4;
+        pointer-events: none;
+      }
+    }
   }
 
 

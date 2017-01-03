@@ -42,6 +42,25 @@ In a template use:
 **NB.**
 Make sure the content you wrap with `app-scrollslider` has `white-space: nowrap` if it's a list.
 
+## Custom Buttons
+transclude buttons:
+
+```
+<app-scrollslider>
+  <!-- example content -->
+  ...
+  <button leftButtonContent #leftButton>
+    Left button
+  </button>
+  <button rightButtonContent #rightButton>
+    Right button
+  </button>
+  <!-- example content end -->
+</app-scrollslider>
+```
+
+Both "leftButtonContent" & "#leftButton" attributes are needed when making a custom left button
+
 
 ## Attributes
 In a template:
@@ -53,8 +72,6 @@ In a template:
   [scrollLength]="300"
   [scrollerTrackClasses]="'ws-medium'" // example classes
   [buttonClasses]="'button button-primary'" // example classes
-  [leftButtonText]="left"
-  [rightButtonText]="right"
   [layout]="'split'">
   ...
 </app-scrollslider>
@@ -66,7 +83,5 @@ In a template:
 | duration      | number                     | The duration it scrolls on button click (milliseconds)                                               |
 | scrollLength  | number                     | How far it scrolls on button click (pixels)                                                          |
 | buttonClasses | string                     | Add custom classes to the buttons for custom button styling |
-| leftButtonText | string                     | The text inside left button |
-| rightButtonText | string                     | The text inside right button |
 | scrollerTrackClasses | string                     | Add custom classes to the track where the content is located |
 | layout | string ('default' or 'split') | Default: Places the button to the right side<br>Split: Places the track between the nav buttons |
