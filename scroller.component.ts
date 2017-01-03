@@ -88,10 +88,10 @@ export class ScrollerComponent implements OnInit {
 
       if (this.scrollerViewEl.scrollWidth > this.scrollerViewEl.offsetWidth && this.scrollerRoot.nativeElement.offsetWidth > this.showButtonsFrom) {
         this.navIsVisible = true;
-        console.log('1', this.scrollerRoot.nativeElement.offsetWidth)
+        console.log('1', this.scrollerRoot.nativeElement.offsetWidth > this.showButtonsFrom)
       } else {
         this.navIsVisible = false;
-        console.log('2', this.scrollerRoot.nativeElement.offsetWidth)
+        console.log('2', this.scrollerRoot.nativeElement.offsetWidth > this.showButtonsFrom)
       };
 
     } else if (this.scrollerRoot.nativeElement.offsetWidth > this.showButtonsFrom && this.behavior === 'static') {
