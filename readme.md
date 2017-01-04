@@ -62,6 +62,18 @@ transclude buttons:
 Both "leftButtonContent" & "#leftButton" attributes are needed when making a custom left button
 
 
+## Responsive
+Hide buttons on small screens:
+
+```
+<app-scrollslider [showButtonsFrom]="400">
+  ...
+</app-scrollslider>
+```
+
+400 represents the pixel value of it's own width, all widths below 400 will hide buttons
+
+
 ## Attributes
 In a template:
 
@@ -85,3 +97,4 @@ In a template:
 | buttonClasses | string                     | Add custom classes to the buttons for custom button styling |
 | scrollerTrackClasses | string                     | Add custom classes to the track where the content is located |
 | layout | string ('default' or 'split') | Default: Places the button to the right side<br>Split: Places the track between the nav buttons |
+| showButtonsFrom  | number                     | Hides the buttons below the pixel value written here |
