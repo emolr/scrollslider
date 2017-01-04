@@ -1,7 +1,7 @@
 {
   "name": "scrollslider",
   "version": "1.0.0",
-  "description": "adds smoothscrolling and scroll buttons if component has overflowing content, needs angular < 2.*",
+  "description": "adds smoothscrolling and scroll buttons if component has overflowing content, needs angular > 2.*",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
