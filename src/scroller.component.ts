@@ -5,8 +5,88 @@ type Layout = 'default' | 'split';
 
 @Component({
   selector: 'app-scrollslider',
-  templateUrl: './scroller.component.html',
-  styleUrls: ['./scroller.component.scss']
+  template: `
+    <div
+      class="scroller"
+      #scroller
+      [class.scroller--split-layout]="layout === 'split'">
+      <div #scroller__list class="scroller__list {{scrollerTrackClasses}}">
+        <div class="scroller__list__track" #scroller__list__track>
+          <ng-content></ng-content>
+          <div style='clear:both'></div>
+        </div>
+      </div>
+
+      <div
+        *ngIf="navIsVisible"
+        class="scroller__nav scroller__nav--left">
+        <span
+        (click)="scroll(-scrollLength)"
+        [ngClass]="{'is-disabled': disableScrollLeft}"
+        class="scroller__nav__button {{buttonClasses}}">
+          <span *ngIf="!customLeftButton">Button left</span>
+          <ng-content select="[leftButtonContent]"></ng-content>
+        </span>
+      </div>
+
+      <div
+        *ngIf="navIsVisible"
+        class="scroller__nav scroller__nav--right">
+        <span
+        (click)="scroll(+scrollLength)"
+        [ngClass]="{'is-disabled': disableScrollRight}"
+        class="scroller__nav__button {{buttonClasses}}">
+          <span *ngIf="!customRightButton">Button right</span>
+          <ng-content select="[rightButtonContent]"></ng-content>
+        </span>
+      </div>
+    </div>
+  `,
+  styles: [`
+    .scroller {
+      position: relative;
+      display: flex;
+      overflow: hidden;
+      align-items: center;
+    }
+    .scroller__list {
+      position: relative;
+      min-height: 100%;
+      overflow: hidden;
+    }
+    .scroller__list__track {
+      display: block;
+      margin: 0;
+      padding: 0;
+      min-height: 100%;
+      overflow: hidden;
+      position: relative;
+      -webkit-overflow-scrolling: touch;
+    }
+    .scroller__nav {
+      flex-shrink: 0;
+      min-height: auto;
+      min-height: -webkit-min-content;
+    }
+    .scroller__nav > .scroller__nav__button {
+      user-select: none;
+      cursor: default;
+      display: block;
+    }
+    .scroller__nav > .scroller__nav__button.is-disabled {
+      opacity: .4;
+      pointer-events: none;
+    }
+    .scroller--split-layout .scroller__nav--left {
+      order: 1;
+    }
+    .scroller--split-layout .scroller__nav--right {
+      order: 3;
+    }
+    .scroller--split-layout .scroller__list {
+      order: 2;
+    }
+  `]
 })
 export class ScrollerComponent implements OnInit {
   @ViewChild('scroller')
@@ -88,15 +168,12 @@ export class ScrollerComponent implements OnInit {
 
       if (this.scrollerViewEl.scrollWidth > this.scrollerViewEl.offsetWidth && this.scrollerRoot.nativeElement.offsetWidth > this.showButtonsFrom) {
         this.navIsVisible = true;
-        console.log('1', this.scrollerRoot.nativeElement.offsetWidth > this.showButtonsFrom)
       } else {
         this.navIsVisible = false;
-        console.log('2', this.scrollerRoot.nativeElement.offsetWidth > this.showButtonsFrom)
       };
 
     } else if (this.scrollerRoot.nativeElement.offsetWidth > this.showButtonsFrom && this.behavior === 'static') {
       this.navIsVisible = true;
-      console.log('3')
     }
   }
 
