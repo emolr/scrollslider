@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer, ViewChild, ContentChild, Input, ElementRef } from '@angular/core';
+import { Component, AfterContentInit, Renderer, ViewChild, ContentChild, Input, ElementRef } from '@angular/core';
 
 type Behavior = 'auto' | 'static';
 type Layout = 'default' | 'split';
@@ -88,7 +88,7 @@ type Layout = 'default' | 'split';
     }
   `]
 })
-export class ScrollerComponent implements OnInit {
+export class ScrollerComponent implements AfterContentInit {
   @ViewChild('scroller')
     public scrollerRoot: ElementRef;
   @ViewChild('scroller__list')
@@ -122,7 +122,7 @@ export class ScrollerComponent implements OnInit {
 
   constructor( public renderer: Renderer ) { }
 
-  ngOnInit() {
+  ngAfterContentInit() {
     this.scrollerViewEl = this.scrollerView.nativeElement;
     const scrollerViewHeight = this.scrollerViewEl.offsetHeight;
 

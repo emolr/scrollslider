@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "es5",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "removeComments": true,
+        "outDir": "./lib",
+        "declaration": true
+    },
+    "files": [
+        "src/index.ts",
+        "src/scroller.component.ts",
+        "src/scroller.module.ts"
+    ]
+}
