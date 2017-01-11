@@ -9,7 +9,8 @@ type Layout = 'default' | 'split';
     <div
       class="scroller"
       #scroller
-      [class.scroller--split-layout]="layout === 'split'">
+      [class.scroller--split-layout]="layout === 'split'"
+      [class.scroller--has-visible-nav]="navIsVisible">
       <div #scroller__list class="scroller__list {{scrollerTrackClasses}}">
         <div class="scroller__list__track" #scroller__list__track>
           <ng-content></ng-content>
@@ -168,6 +169,7 @@ export class ScrollerComponent implements AfterContentInit {
 
       if (this.scrollerViewEl.scrollWidth > this.scrollerViewEl.offsetWidth && this.scrollerRoot.nativeElement.offsetWidth > this.showButtonsFrom) {
         this.navIsVisible = true;
+
       } else {
         this.navIsVisible = false;
       };
