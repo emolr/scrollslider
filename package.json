@@ -1,6 +1,6 @@
 {
   "name": "scrollslider",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "description": "adds smoothscrolling and scroll buttons if component has overflowing content, needs angular > 2.*",
   "main": "index.js",
   "scripts": {

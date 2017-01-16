@@ -178,14 +178,14 @@ export class ScrollerComponent implements AfterContentInit {
   shouldNavBeVisible() {
     if (this.behavior === 'auto') {
 
-      if (this.scrollerViewEl.scrollWidth > this.scrollerViewEl.offsetWidth && this.scrollerRoot.nativeElement.offsetWidth > this.showButtonsFrom) {
+      if (this.scrollerViewEl.scrollWidth > this.scrollerViewEl.offsetWidth && this.nativeWindow.matchMedia(`(min-width: ${this.showButtonsFrom}px)`).matches) {
         this.navIsVisible = true;
 
       } else {
         this.navIsVisible = false;
       };
 
-    } else if (this.scrollerRoot.nativeElement.offsetWidth > this.showButtonsFrom && this.behavior === 'static') {
+    } else if (this.nativeWindow.matchMedia(`(min-width: ${this.showButtonsFrom}px)`).matches && this.behavior === 'static') {
       this.navIsVisible = true;
     }
   }

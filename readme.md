@@ -97,4 +97,4 @@ In a template:
 | buttonClasses | string                     | Add custom classes to the buttons for custom button styling |
 | scrollerTrackClasses | string                     | Add custom classes to the track where the content is located |
 | layout | string ('default' or 'split') | Default: Places the button to the right side<br>Split: Places the track between the nav buttons |
-| showButtonsFrom  | number                     | Hides the buttons below the pixel value written here |
+| showButtonsFrom  | number                     | Hides the buttons below the window pixel width value written here |
