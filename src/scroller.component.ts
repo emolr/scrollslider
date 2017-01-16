@@ -10,11 +10,13 @@ type Layout = 'default' | 'split';
       class="scroller"
       #scroller
       [class.scroller--split-layout]="layout === 'split'"
-      [class.scroller--has-visible-nav]="navIsVisible">
+      [class.scroller--has-visible-nav]="navIsVisible"
+      [class.scroller--is-initiated]="initiated">
       <div #scroller__list class="scroller__list {{scrollerTrackClasses}}">
         <div class="scroller__list__track" #scroller__list__track>
-          <ng-content></ng-content>
-          <div style='clear:both'></div>
+          <div>
+            <ng-content></ng-content>
+          </div>
         </div>
       </div>
 
@@ -49,6 +51,10 @@ type Layout = 'default' | 'split';
       display: flex;
       overflow: hidden;
       align-items: center;
+      opacity: 0;
+    }
+    .scroller--is-initiated {
+      opacity: 1;
     }
     .scroller__list {
       position: relative;
@@ -120,29 +126,23 @@ export class ScrollerComponent implements AfterContentInit {
   public disableScrollRight: Boolean = false;
   public disableScrollLeft: Boolean = true;
   public scrollerViewEl: HTMLElement;
+  public initiated: Boolean = false;
 
   constructor( public renderer: Renderer ) { }
 
   ngAfterContentInit() {
-    this.scrollerViewEl = this.scrollerView.nativeElement;
-    const scrollerViewHeight = this.scrollerViewEl.offsetHeight;
-
-    // Set inital style to hide scrollbar
-    this.renderer.setElementStyle(this.scrollerList.nativeElement, 'height', `${scrollerViewHeight}px`);
-    this.renderer.setElementStyle(this.scrollerViewEl, 'overflowX', 'scroll');
-    this.renderer.setElementStyle(this.scrollerViewEl, 'paddingBottom', '30px');
+    this.init();
 
     // Check if scroll buttons should activated
     setTimeout(() => {
-      this.shouldNavBeVisible();
-      this.checkButtonStates();
+      this.update();
+      this.initiated = true;
     });
 
-    // Keep checking if nav should be visible
     this.renderer.listenGlobal(
       'window',
       'resize',
-      this.debounce(this.shouldNavBeVisible, 100, this)
+      this.debounce(this.update, 100, this)
     );
 
     // Check if user can scroll more to right / left
@@ -151,12 +151,22 @@ export class ScrollerComponent implements AfterContentInit {
       'scroll',
       this.debounce(this.checkButtonStates, 0, this)
     );
+  }
 
-    this.renderer.listenGlobal(
-      'window',
-      'resize',
-      this.debounce(this.checkButtonStates, 100, this)
-    );
+  update() {
+    this.init();
+    this.checkButtonStates();
+    this.shouldNavBeVisible();
+  }
+
+  init() {
+    this.scrollerViewEl = this.scrollerView.nativeElement;
+    const scrollerViewHeight = this.scrollerView.nativeElement.children[0].offsetHeight;
+
+    // Set inital style to hide scrollbar
+    this.renderer.setElementStyle(this.scrollerList.nativeElement, 'height', `${scrollerViewHeight}px`);
+    this.renderer.setElementStyle(this.scrollerViewEl, 'overflowX', 'scroll');
+    this.renderer.setElementStyle(this.scrollerViewEl, 'paddingBottom', '30px');
   }
 
   /* Check if content overflows the
