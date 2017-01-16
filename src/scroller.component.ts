@@ -166,6 +166,7 @@ export class ScrollerComponent implements AfterContentInit {
     // Set inital style to hide scrollbar
     this.renderer.setElementStyle(this.scrollerList.nativeElement, 'height', `${scrollerViewHeight}px`);
     this.renderer.setElementStyle(this.scrollerViewEl, 'overflowX', 'scroll');
+    this.renderer.setElementStyle(this.scrollerViewEl, '-webkit-overflow-scrolling', 'touch');
     this.renderer.setElementStyle(this.scrollerViewEl, 'paddingBottom', '30px');
   }
 
